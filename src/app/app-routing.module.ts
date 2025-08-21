@@ -36,6 +36,12 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'nova-entrega',
+                loadComponent() {
+                    return import('./pages/nova-entrega.page').then(m => m.NovaEntregaPage);
+                },
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard'
             }

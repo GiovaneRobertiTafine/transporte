@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from "@angular/core";
-import { FiltroDashboard } from "../models/constants/dashboard.constant";
+import { FiltroEntregas } from "../models/constants/entregas.constant";
 import { CommonModule, NgFor } from "@angular/common";
 import { DeParaPipe } from "../pipes/de-para.pipe";
 import { FiltroDeParaDashboard } from "../models/types/dashboard.type";
-import { FiltroDashboardRequest } from "../models/requests/dashboard.request";
+import { ObterEntregasRequest } from "../models/requests/obter-entregas.request";
 import { FormsModule, NgModel } from "@angular/forms";
 import { BehaviorSubject, catchError, EMPTY, of, switchMap } from "rxjs";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { DashboardService, ErrorResponse } from "../services/dashboard.service";
+import { EntregaService, ErrorResponse } from "../services/entrega.service";
 import { StatusEntrega } from "../models/enums/status-entrega.enum";
 import { StatusEntregaColorDirective } from "../directives/status-entrega-color.directive";
 import { Router } from "@angular/router";
@@ -62,30 +62,30 @@ import { EntregasDto } from "../models/dto/entregas.dto";
         }
     `],
     imports: [CommonModule, NgFor, DeParaPipe, FormsModule, StatusEntregaColorDirective],
-    providers: [DashboardService]
+    providers: [EntregaService]
 })
 export class DashboardPage {
-    protected listaFiltro = FiltroDashboard;
+    protected listaFiltro = FiltroEntregas;
     protected statusEntrega = StatusEntrega;
 
-    private dashboardService = inject(DashboardService);
+    private entregaService = inject(EntregaService);
     private router = inject(Router);
 
     trackByIndex(index: number, item: any): number {
         return index;
     }
 
-    protected filtro: FiltroDashboardRequest = {
+    protected filtro: ObterEntregasRequest = {
         key: undefined,
         value: undefined
     };
 
-    protected request$ = new BehaviorSubject<FiltroDashboardRequest>(this.filtro);
+    protected request$ = new BehaviorSubject<ObterEntregasRequest>(this.filtro);
 
     protected entregasDto = toSignal(
         this.request$.pipe(
             switchMap((req) => {
-                return this.dashboardService.obterEntregas(req)
+                return this.entregaService.obterEntregas(req)
                     .pipe(
                         catchError((error: ErrorResponse) => {
                             console.log(error);

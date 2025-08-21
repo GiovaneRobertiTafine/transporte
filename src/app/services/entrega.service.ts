@@ -1,19 +1,20 @@
 import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
 import { EntregasDto } from "../models/dto/entregas.dto";
-import { FiltroDashboardRequest } from "../models/requests/dashboard.request";
+import { ObterEntregasRequest } from "../models/requests/obter-entregas.request";
 import { StatusEntrega } from "../models/enums/status-entrega.enum";
 import { catchError, delay } from "rxjs/operators";
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
+import { NovaEntregaRequest } from "../models/requests/nova-entrega.request";
 
 export type ErrorResponse = { Codigo: HttpStatusCode, Descricao: string; };
 
 @Injectable({
     providedIn: 'root'
 })
-export class DashboardService {
+export class EntregaService {
 
-    obterEntregas(filtro?: FiltroDashboardRequest): Observable<EntregasDto[]> {
+    obterEntregas(filtro?: ObterEntregasRequest): Observable<EntregasDto[]> {
         return of([
             {
                 id: 123878,
@@ -60,6 +61,13 @@ export class DashboardService {
             }]).pipe(
                 catchError(this.handleError),
             );
+    }
+
+    novaEntrega(request: NovaEntregaRequest): Observable<void> {
+        return of(void 0).pipe(
+            delay(1000),
+            catchError(this.handleError),
+        );
     }
 
     handleError(error: HttpErrorResponse) {
