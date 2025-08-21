@@ -6,8 +6,10 @@ import { SideMenuComponent } from "../components/side-menu.component";
 @Component({
     selector: 'template-home',
     template: `	
-        <div class="home-container">
-            <router-outlet></router-outlet>
+        <div class="d-flex justify-content-between py-3 px-1 px-lg-5">
+            <div class="container-fluid">
+                <router-outlet />
+            </div>
             <component-side-menu />
         </div>
     `,

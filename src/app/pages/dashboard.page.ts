@@ -12,43 +12,51 @@ import { StatusEntrega } from "../models/enums/status-entrega.enum";
 import { StatusEntregaColorDirective } from "../directives/status-entrega-color.directive";
 import { Router } from "@angular/router";
 import { EntregasDto } from "../models/dto/entregas.dto";
+import { NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'page-dashboard',
     template: `
-        <h1>Dashboard de Entregas</h1>
-        <div class="dashboard-content card">
-            <div class="dashboard-header">
-                <select name="filtro" id="filtro-select" [(ngModel)]="filtro.key">
+        <h3>Dashboard de Entregas</h3>
+        <div class="card">
+            <div class="d-lg-flex align-items-center p-3 gap-3 col-lg-6 col-auto">
+                <select class="form-select col mb-3 mb-lg-0" name="filtro" id="filtro-select" [(ngModel)]="filtro.key">
                     <option [value]="undefined" hidden>Selecione</option>
                     <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [value]="item">
                         {{item | dePara: 'filtro-dashboard'}}
                     </option>
                 </select>
-                <input type="text" name="filtro-input" [(ngModel)]="filtro.value">
-                <button class="btn btn-primary">Buscar</button>
+                <input class="form-control col mb-3 mb-lg-0" type="text" name="filtro-input" [(ngModel)]="filtro.value">
+                <button class="btn btn-primary col-auto">Buscar</button>
             </div>
-            <div class="dashboard-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Pedido</th>
-                            <th>Cliente</th>
-                            <th>Data Envio</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of entregasDto(); trackBy trackByIndex" (click)="detalharEntrega(item)">
-                            <td>{{item.id}}</td>
-                            <td>{{item.cliente}}</td>
-                            <td>{{item.dataEnvio | date: 'dd/mm/yyyy'}}</td>
-                            <td [status]="item.status">
-                                {{statusEntrega[item.status] | dePara: 'status-entrega'}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="border-top">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Data Envio</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of entregasDto(); trackBy trackByIndex" (click)="detalharEntrega(item)">
+                                <td>{{item.id}}</td>
+                                <td>{{item.cliente}}</td>
+                                <td>{{item.dataEnvio | date: 'dd/mm/yyyy'}}</td>
+                                <td>
+                                    <span class="p-1 rounded-2" [status]="item.status">
+                                        {{statusEntrega[item.status] | dePara: 'status-entrega'}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end align-itens-center pe-3">
+                <ngb-pagination [collectionSize]="0" />
             </div>
         </div>
     `,
@@ -60,8 +68,22 @@ import { EntregasDto } from "../models/dto/entregas.dto";
             justify-content: space-between;
             padding: 16px;
         }
+        .dashboard-table {
+            ngb-pagination {
+                float: right;
+            }
+        }
+        tr>th {
+            white-space: nowrap;
+        }
     `],
-    imports: [CommonModule, NgFor, DeParaPipe, FormsModule, StatusEntregaColorDirective],
+    imports: [
+        CommonModule,
+        DeParaPipe,
+        FormsModule,
+        StatusEntregaColorDirective,
+        NgbPaginationModule
+    ],
     providers: [EntregaService]
 })
 export class DashboardPage {

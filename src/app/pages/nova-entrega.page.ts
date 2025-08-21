@@ -11,46 +11,56 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
     selector: 'page-nova-entrega',
     template: `
         <div class="nova-entrega-container">
-            <h1>Nova Entrega</h1>
+            <h3>Nova Entrega</h3>
             <form [formGroup]="entregaForm" (ngSubmit)="novaEntrega(); focusFormInvalid.focus()" 
                 focusInvalid #focusFormInvalid="focusInvalid" [selectorInvalid]="selectorInvalid">
-                <label for="cliente">Cliente:</label>
-                <input type="text" id="cliente" name="cliente" formControlName="cliente">
-                <div class="msg-control-invalid" *ngIf="entregaForm.get('cliente')?.hasError('required') && 
-                    entregaForm.get('cliente')?.touched">
-                    Cliente é requerido.
-                </div>
-
-                
-                <label for="endereco">Endereço:</label>
-                <input type="text" id="endereco" name="endereco" formControlName="endereco">
-                <div class="msg-control-invalid" *ngIf="entregaForm.get('endereco')?.hasError('required') && 
-                    entregaForm.get('endereco')?.touched">
-                    Endereço é requerido.
-                </div>
-
-                <label for="dataEstimadaEntrega">Data estimada de Entrega:</label>
-                <input type="date" id="dataEstimadaEntrega" name="dataEstimadaEntrega" formControlName="dataEstimadaEntrega">
-                <div class="msg-control-invalid" *ngIf="entregaForm.get('dataEstimadaEntrega')?.hasError('required') && 
-                    entregaForm.get('dataEstimadaEntrega')?.touched">
-                    Data é requerido.
-                </div>
-                <div class="msg-control-invalid" *ngIf="entregaForm.get('dataEstimadaEntrega')?.hasError('menorQueHoje') && 
-                    entregaForm.get('dataEstimadaEntrega')?.touched">
-                    A data precisa ser posterior a hoje.
-                </div>
-
-                <label for="produto">Produto:</label>
-                <input type="text" id="produto" name="produto" formControlName="produto">
-                <div class="msg-control-invalid" *ngIf="entregaForm.get('produto')?.hasError('required') && 
-                    entregaForm.get('produto')?.touched">
-                    Produto é requerido.
+                <div class="mb-3">
+                    <label class="form-label" for="cliente">Cliente:</label>
+                    <input type="text" class="form-control" id="cliente" name="cliente" formControlName="cliente">
+                    <div class="small text-danger" *ngIf="entregaForm.get('cliente')?.hasError('required') && 
+                        entregaForm.get('cliente')?.touched">
+                        Cliente é requerido.
+                    </div>
                 </div>
                 
-                <label for="observacoes">Observações:</label>
-                <input type="text" id="observacoes" name="observacoes" formControlName="observacoes">
+                <div class="mb-3">
+                    <label class="form-label" for="endereco">Endereço:</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco" formControlName="endereco">
+                    <div class="small text-danger" *ngIf="entregaForm.get('endereco')?.hasError('required') && 
+                        entregaForm.get('endereco')?.touched">
+                        Endereço é requerido.
+                    </div>
+                </div>
 
-                <button type="submit">Criar Entrega</button>
+                <div class="mb-3">
+                    <label class="form-label" for="dataEstimadaEntrega">Data estimada de Entrega:</label>
+                    <input class="form-control" type="date" id="dataEstimadaEntrega" name="dataEstimadaEntrega" formControlName="dataEstimadaEntrega">
+                    <div class="small text-danger" *ngIf="entregaForm.get('dataEstimadaEntrega')?.hasError('required') && 
+                        entregaForm.get('dataEstimadaEntrega')?.touched">
+                        Data é requerido.
+                    </div>
+                    <div class="small text-danger" *ngIf="entregaForm.get('dataEstimadaEntrega')?.hasError('menorQueHoje') && 
+                        entregaForm.get('dataEstimadaEntrega')?.touched">
+                        A data precisa ser posterior a hoje.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="produto">Produto:</label>
+                    <input type="text" class="form-control" id="produto" name="produto" formControlName="produto">
+                    <div class="small text-danger" *ngIf="entregaForm.get('produto')?.hasError('required') && 
+                        entregaForm.get('produto')?.touched">
+                        Produto é requerido.
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label" for="observacoes">Observações:</label>
+                    <textarea type="text" class="form-control" id="observacoes" name="observacoes" formControlName="observacoes">
+                    </textarea>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Criar Entrega</button>
             </form>
         </div>
     `,
