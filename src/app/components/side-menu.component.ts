@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { ListaItensSideMenu } from "../models/constants/side-menu.constant";
 import { CommonModule } from "@angular/common";
-import { MenuItens } from "../models/types/side-menu.types";
+import { MenuItens } from "../models/types/side-menu.type";
 import { RouterLink } from "@angular/router";
 
 @Component({

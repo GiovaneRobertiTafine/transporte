@@ -15,6 +15,7 @@ import { SideMenuComponent } from "../components/side-menu.component";
         .home-container {
             display: flex;
             height: 100vh;
+           
         }
     `],
     standalone: true,

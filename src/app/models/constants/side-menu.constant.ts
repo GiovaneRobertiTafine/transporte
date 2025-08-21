@@ -1,4 +1,4 @@
-import { MenuItens } from "../types/side-menu.types";
+import { MenuItens } from "../types/side-menu.type";
 
 export const ListaItensSideMenu: MenuItens[] = [
     {
