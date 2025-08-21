@@ -20,9 +20,20 @@ const routes: Routes = [
             },
             {
                 path: 'dashboard',
-                loadComponent() {
-                    return import('./pages/dashboard.page').then(m => m.DashboardPage);
-                }
+                children: [
+                    {
+                        path: '',
+                        loadComponent() {
+                            return import('./pages/dashboard.page').then(m => m.DashboardPage);
+                        },
+                    },
+                    {
+                        path: ':id',
+                        loadComponent() {
+                            return import('./pages/dashboard-detail.page').then(m => m.DashboardDetailPage);
+                        }
+                    }
+                ]
             },
             {
                 path: '**',

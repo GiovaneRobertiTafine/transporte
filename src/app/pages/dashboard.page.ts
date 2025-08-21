@@ -10,6 +10,8 @@ import { toSignal } from "@angular/core/rxjs-interop";
 import { DashboardService, ErrorResponse } from "../services/dashboard.service";
 import { StatusEntrega } from "../models/enums/status-entrega.enum";
 import { StatusEntregaColorDirective } from "../directives/status-entrega-color.directive";
+import { Router } from "@angular/router";
+import { EntregasDto } from "../models/dto/entregas.dto";
 
 @Component({
     selector: 'page-dashboard',
@@ -20,7 +22,7 @@ import { StatusEntregaColorDirective } from "../directives/status-entrega-color.
                 <select name="filtro" id="filtro-select" [(ngModel)]="filtro.key">
                     <option [value]="undefined" hidden>Selecione</option>
                     <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [value]="item">
-                        {{item | dePara: deParaFiltro}}
+                        {{item | dePara: 'filtro-dashboard'}}
                     </option>
                 </select>
                 <input type="text" name="filtro-input" [(ngModel)]="filtro.value">
@@ -37,12 +39,12 @@ import { StatusEntregaColorDirective } from "../directives/status-entrega-color.
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of entregasDto(); trackBy trackByIndex">
+                        <tr *ngFor="let item of entregasDto(); trackBy trackByIndex" (click)="detalharEntrega(item)">
                             <td>{{item.id}}</td>
                             <td>{{item.cliente}}</td>
                             <td>{{item.dataEnvio | date: 'dd/mm/yyyy'}}</td>
                             <td [status]="item.status">
-                                {{statusEntrega[item.status] | dePara: deParaStatusEntrega}}
+                                {{statusEntrega[item.status] | dePara: 'status-entrega'}}
                             </td>
                         </tr>
                     </tbody>
@@ -67,22 +69,7 @@ export class DashboardPage {
     protected statusEntrega = StatusEntrega;
 
     private dashboardService = inject(DashboardService);
-
-    protected deParaFiltro: FiltroDeParaDashboard = {
-        id: 'Código do Pedido',
-        cliente: 'Nome do Cliente',
-        status: 'Status da Entrega'
-    };
-
-    protected deParaStatusEntrega: Record<(keyof typeof StatusEntrega), string> = {
-        CANCELADA: 'Cancelada',
-        COLETADO: 'Coletado',
-        EM_ROTA: 'Em Rota',
-        ENTREGUE: 'Entregue',
-        PEDIDO_CRIADO: 'Pedido Criado',
-        PENDENTE: 'Pendente',
-        SAIU_ENTREGA: 'Saiu para Entrega'
-    };
+    private router = inject(Router);
 
     trackByIndex(index: number, item: any): number {
         return index;
@@ -108,4 +95,8 @@ export class DashboardPage {
             })
         )
         , { initialValue: [] });
+
+    detalharEntrega(entrega: EntregasDto): void {
+        this.router.navigate(['/home/dashboard', entrega.id], { state: entrega });
+    }
 }
