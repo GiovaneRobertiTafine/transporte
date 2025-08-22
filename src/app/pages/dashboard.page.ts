@@ -22,14 +22,20 @@ import { ToastrService } from "ngx-toastr";
     template: `
         <h3>Dashboard de Entregas</h3>
         <div class="card">
-            <div class="d-lg-flex align-items-center p-3 gap-3 col-lg-6 col-auto">
-                <select class="form-select col mb-3 mb-lg-0" name="filtro" id="filtro-select" [(ngModel)]="filtro.status" placeholder="Selecione por Status">
-                    <option [ngValue]="undefined">Todos</option>
-                    <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [ngValue]="item.value">
-                        {{item.display}}
-                    </option>
-                </select>
-                <input class="form-control col mb-3 mb-lg-0" type="text" name="filtro-input" [(ngModel)]="filtro.clienteCodigo" placeholder="Código ou Cliente" />
+            <div class="d-lg-flex align-items-center p-3 gap-3 col-lg-6 col-auto form-floating">
+                <div class="form-floating">
+                    <select class="form-select col mb-3 mb-lg-0" name="filtro" id="filtroStatus" [(ngModel)]="filtro.status" placeholder="Selecione por Status">
+                        <option [ngValue]="undefined">Todos</option>
+                        <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [ngValue]="item.value">
+                            {{item.display}}
+                        </option>
+                    </select>
+                    <label for="filtroStatus">Status</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control col mb-3 mb-lg-0" id="filtroClienteCodigo" type="text" name="filtro-input" [(ngModel)]="filtro.clienteCodigo" placeholder="Código ou Cliente" />
+                    <label for="filtroClienteCodigo">Código ou Cliente</label>
+                </div>
                 <button class="btn btn-primary col-auto" (click)="aplicarFiltro()">Buscar</button>
             </div>
             <div class="border-top">
@@ -58,9 +64,10 @@ import { ToastrService } from "ngx-toastr";
                     </table>
                 </div>
             </div>
-            <div class="d-flex justify-content-end align-itens-center pe-3">
+            <div class="d-flex justify-content-between align-itens-center pe-3">
+                <span class="small fst-italic text-muted ms-3 align-self-center">* 5 entregas por página</span>
                 <ngb-pagination 
-                    [page]="pagination().page" 
+                    [(page)]="pagination().page" 
                     [collectionSize]="pagination().collectionSize" 
                     [pageSize]="pagination().pageSize" 
                     (pageChange)="aplicarPagination()" />
@@ -74,6 +81,9 @@ import { ToastrService } from "ngx-toastr";
             display: flex;
             justify-content: space-between;
             padding: 16px;
+        }
+        tr {
+            cursor: pointer;
         }
         tr>th,
         tr>td {

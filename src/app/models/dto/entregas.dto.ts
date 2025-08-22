@@ -1,7 +1,7 @@
 import { StatusEntrega } from "../enums/status-entrega.enum";
 
 export interface EntregasDto {
-    id: number;
+    id: string;
     cliente: string;
     dataEnvio: Date;
     status: StatusEntrega;

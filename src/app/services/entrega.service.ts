@@ -7,6 +7,7 @@ import { catchError, delay } from "rxjs/operators";
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
 import { NovaEntregaRequest } from "../models/requests/nova-entrega.request";
 import { environment } from "src/environments/environment.development";
+import { AlterarEntregaRequest } from "../models/requests/alterar-entrega.request";
 
 export type ErrorResponse = { Codigo: HttpStatusCode; Descricao: string; };
 export type ResponsePaginado<T> = { resultado: T; tamanhoColecao: number; };
@@ -33,8 +34,24 @@ export class EntregaService {
         );
     }
 
+    obterEntregaPorCodigo(codigo: string): Observable<EntregasDto> {
+        return this.httpClient.get<EntregasDto>(`${this.API_URL}/entrega/${codigo}`)
+            .pipe(
+                catchError(this.handleError),
+            );
+    };
+
+
     novaEntrega(request: NovaEntregaRequest): Observable<void> {
         return this.httpClient.post<void>(`${this.API_URL}/entrega`, {
+            ...request
+        }).pipe(
+            catchError(this.handleError),
+        );
+    };
+
+    alterarStatusEntrega(codigo: string, request: AlterarEntregaRequest): Observable<EntregasDto> {
+        return this.httpClient.put<EntregasDto>(`${this.API_URL}/entrega/${codigo}`, {
             ...request
         }).pipe(
             catchError(this.handleError),

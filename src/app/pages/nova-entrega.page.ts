@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, DestroyRef, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from "@angular/core";
 import { AbstractControl, FormBuilder, FormControl, ReactiveFormsModule, ValidationErrors, Validators } from "@angular/forms";
 import { NovaEntregaForm, NovaEntregaRequest } from "../models/requests/nova-entrega.request";
 import { StatusEntrega } from "../models/enums/status-entrega.enum";
@@ -8,6 +8,7 @@ import { FormInvalidFocus } from "../directives/form-invalid-focus.directive";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
+import { finalize } from "rxjs";
 
 @Component({
     selector: 'page-nova-entrega',
@@ -69,6 +70,7 @@ import { ToastrService } from "ngx-toastr";
     styles: [`
     `],
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, ReactiveFormsModule, FormInvalidFocus]
 })
 export class NovaEntregaPage {
@@ -110,10 +112,11 @@ export class NovaEntregaPage {
         if (this.entregaForm.invalid) {
             return;
         }
-
+        this.ngxSpinnerService.show();
         this.entregaService.novaEntrega(this.entregaForm.value as NovaEntregaRequest)
             .pipe(
-                takeUntilDestroyed(this.destroyRef)
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.ngxSpinnerService.hide())
             )
             .subscribe({
                 next: () => {
