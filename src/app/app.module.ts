@@ -8,6 +8,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from 'ngx-toastr';
+import { EntregaService } from './services/entrega.service';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
         NgxSpinnerModule,
         ToastrModule.forRoot()
     ],
-    providers: [provideHttpClient()],
+    providers: [provideHttpClient(), EntregaService],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -86,8 +86,7 @@ import { ToastrService } from "ngx-toastr";
         FormsModule,
         StatusEntregaColorDirective,
         NgbPaginationModule
-    ],
-    providers: [EntregaService]
+    ]
 })
 export class DashboardPage {
     protected listaFiltro = FiltroEntregas;

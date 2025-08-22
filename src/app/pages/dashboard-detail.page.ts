@@ -17,7 +17,7 @@ import { DeParaPipe } from "../pipes/de-para.pipe";
                         <li class="list-group-item">
                             <strong>Cliente: </strong>{{entrega.cliente}}</li>
                         <li class="list-group-item">
-                            <strong>Data Envio:</strong>{{entrega.dataEnvio | date: 'dd/mm/yyyy'}}</li>
+                            <strong>Data Envio:</strong>{{entrega.dataEnvio | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item">
                             <strong>Status: </strong>{{statusEntrega[entrega.status] | dePara: 'status-entrega'}}</li>
                         <li class="list-group-item">

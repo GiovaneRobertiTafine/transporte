@@ -34,8 +34,9 @@ export class EntregaService {
     }
 
     novaEntrega(request: NovaEntregaRequest): Observable<void> {
-        return of(void 0).pipe(
-            delay(1000),
+        return this.httpClient.post<void>(`${this.API_URL}/entrega`, {
+            ...request
+        }).pipe(
             catchError(this.handleError),
         );
     }

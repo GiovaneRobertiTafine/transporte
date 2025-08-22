@@ -6,6 +6,8 @@ import { StatusEntrega } from "../models/enums/status-entrega.enum";
 import { EntregaService } from "../services/entrega.service";
 import { FormInvalidFocus } from "../directives/form-invalid-focus.directive";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
     selector: 'page-nova-entrega',
@@ -74,6 +76,8 @@ export class NovaEntregaPage {
     private entregaService = inject(EntregaService);
     protected selectorInvalid: string | string[] = '.ng-invalid';
     private destroyRef = inject(DestroyRef);
+    private ngxSpinnerService = inject(NgxSpinnerService);
+    private toastService = inject(ToastrService);
 
     private menorQueHoje(control: AbstractControl): ValidationErrors | null {
         if (!control.value) {
@@ -113,14 +117,12 @@ export class NovaEntregaPage {
             )
             .subscribe({
                 next: () => {
-                    alert('Entrega criada com sucesso!');
+                    this.toastService.success('Entrega criada com sucesso.');
                     this.entregaForm.reset();
                 },
                 error: (error) => {
-                    alert(`Erro ao criar entrega: ${error.Descricao}`);
+                    this.toastService.error(error, 'Erro ao criar entrega.');
                 }
             });
-        console.log(this.entregaForm.value);
-        console.log(this.entregaForm.valid);
     }
 }
