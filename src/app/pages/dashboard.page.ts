@@ -5,7 +5,7 @@ import { DeParaPipe } from "../pipes/de-para.pipe";
 import { FiltroDeParaDashboard } from "../models/types/dashboard.type";
 import { ObterEntregasRequest } from "../models/requests/obter-entregas.request";
 import { FormsModule, NgModel } from "@angular/forms";
-import { BehaviorSubject, catchError, EMPTY, of, switchMap } from "rxjs";
+import { BehaviorSubject, catchError, EMPTY, map, of, switchMap } from "rxjs";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { EntregaService, ErrorResponse } from "../services/entrega.service";
 import { StatusEntrega } from "../models/enums/status-entrega.enum";
@@ -20,14 +20,14 @@ import { NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
         <h3>Dashboard de Entregas</h3>
         <div class="card">
             <div class="d-lg-flex align-items-center p-3 gap-3 col-lg-6 col-auto">
-                <select class="form-select col mb-3 mb-lg-0" name="filtro" id="filtro-select" [(ngModel)]="filtro.key">
-                    <option [value]="undefined" hidden>Selecione</option>
-                    <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [value]="item">
-                        {{item | dePara: 'filtro-dashboard'}}
+                <select class="form-select col mb-3 mb-lg-0" name="filtro" id="filtro-select" [(ngModel)]="filtro.status" placeholder="Selecione por Status">
+                    <option [ngValue]="undefined">Todos</option>
+                    <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [ngValue]="item.value">
+                        {{item.display}}
                     </option>
                 </select>
-                <input class="form-control col mb-3 mb-lg-0" type="text" name="filtro-input" [(ngModel)]="filtro.value">
-                <button class="btn btn-primary col-auto">Buscar</button>
+                <input class="form-control col mb-3 mb-lg-0" type="text" name="filtro-input" [(ngModel)]="filtro.clienteCodigo" placeholder="Código ou Cliente" />
+                <button class="btn btn-primary col-auto" (click)="aplicarFiltro()">Buscar</button>
             </div>
             <div class="border-top">
                 <div class="table-responsive">
@@ -44,7 +44,7 @@ import { NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
                             <tr *ngFor="let item of entregasDto(); trackBy trackByIndex" (click)="detalharEntrega(item)">
                                 <td>{{item.id}}</td>
                                 <td>{{item.cliente}}</td>
-                                <td>{{item.dataEnvio | date: 'dd/mm/yyyy'}}</td>
+                                <td>{{item.dataEnvio | date: 'dd/MM/yyyy'}}</td>
                                 <td>
                                     <span class="p-1 rounded-2" [status]="item.status">
                                         {{statusEntrega[item.status] | dePara: 'status-entrega'}}
@@ -98,8 +98,8 @@ export class DashboardPage {
     }
 
     protected filtro: ObterEntregasRequest = {
-        key: undefined,
-        value: undefined
+        clienteCodigo: undefined,
+        status: undefined
     };
 
     protected request$ = new BehaviorSubject<ObterEntregasRequest>(this.filtro);
@@ -109,6 +109,7 @@ export class DashboardPage {
             switchMap((req) => {
                 return this.entregaService.obterEntregas(req)
                     .pipe(
+                        map(response => response.resultado),
                         catchError((error: ErrorResponse) => {
                             console.log(error);
                             return EMPTY;
@@ -117,6 +118,10 @@ export class DashboardPage {
             })
         )
         , { initialValue: [] });
+
+    aplicarFiltro(): void {
+        this.request$.next(this.filtro);
+    }
 
     detalharEntrega(entrega: EntregasDto): void {
         this.router.navigate(['/home/dashboard', entrega.id], { state: entrega });

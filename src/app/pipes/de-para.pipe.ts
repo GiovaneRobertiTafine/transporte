@@ -14,13 +14,6 @@ export const DeParaPipeObj: { [index: string]: () => Record<any, string>; } = {
             SAIU_ENTREGA: 'Saiu para Entrega'
         } as Record<(keyof typeof StatusEntrega), string>;
     },
-    'filtro-dashboard': () => {
-        return {
-            id: 'Código do Pedido',
-            cliente: 'Nome do Cliente',
-            status: 'Status da Entrega'
-        } as FiltroDeParaDashboard;
-    }
 };
 
 @Pipe({

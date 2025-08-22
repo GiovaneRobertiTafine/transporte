@@ -1,6 +1,6 @@
-import { EntregasDto } from "../dto/entregas.dto";
+import { StatusEntrega } from "../enums/status-entrega.enum";
 
 export interface ObterEntregasRequest {
-    key?: (keyof Pick<EntregasDto, 'id' | 'cliente' | 'status'>),
-    value?: string;
+    clienteCodigo?: string,
+    status?: StatusEntrega;
 }
