@@ -19,7 +19,7 @@ export class StatusEntregaColorDirective {
             [StatusEntrega.EM_ROTA]: '#b3d0ff',
             [StatusEntrega.ENTREGUE]: '#b3ffc3',
             [StatusEntrega.PENDENTE]: '#fff7b3',
-            [StatusEntrega.PEDIDO_CRIADO]: '#ffb3df',
+            [StatusEntrega.PEDIDO_CRIADO]: '#dddddd',
             [StatusEntrega.SAIU_ENTREGA]: '#b3ffe8'
         };
 

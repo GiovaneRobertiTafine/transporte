@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideHttpClient } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -14,9 +17,11 @@ import { provideHttpClient } from '@angular/common/http';
         BrowserModule,
         AppRoutingModule,
         NgbModule,
-
+        BrowserAnimationsModule,
+        NgxSpinnerModule,
+        ToastrModule.forRoot()
     ],
     providers: [provideHttpClient()],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule { }
