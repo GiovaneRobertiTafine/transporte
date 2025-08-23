@@ -36,7 +36,7 @@ import { finalize } from "rxjs";
 })
 export class AlterarStatusEntregaComponent {
     @Input({ required: true }) entrega: EntregasDto | null = null;
-    @Output() emitAlterado = new EventEmitter<boolean>();
+    @Output() emitAlterado = new EventEmitter<EntregasDto>();
 
     protected listaFiltro = FiltroEntregas;
     protected status?: StatusEntrega = undefined;
@@ -64,7 +64,7 @@ export class AlterarStatusEntregaComponent {
             .subscribe({
                 next: (response) => {
                     this.toastrService.success("Entrega alterada com sucesso.");
-                    this.emitAlterado.emit(true);
+                    this.emitAlterado.emit(response);
                 },
                 error: (error) => {
                     this.toastrService.error(error);

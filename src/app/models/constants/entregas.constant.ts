@@ -1,4 +1,3 @@
-import { EntregasDto } from "../dto/entregas.dto";
 import { StatusEntrega } from "../enums/status-entrega.enum";
 
 export const FiltroEntregas: { value: StatusEntrega, display: string; }[] = [

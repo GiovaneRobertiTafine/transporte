@@ -20,7 +20,9 @@ import { EntregaService } from './services/entrega.service';
         NgbModule,
         BrowserAnimationsModule,
         NgxSpinnerModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot({
+            timeOut: 3000,
+        })
     ],
     providers: [provideHttpClient(), EntregaService],
     bootstrap: [AppComponent],

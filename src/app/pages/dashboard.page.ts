@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
 import { FiltroEntregas } from "../models/constants/entregas.constant";
-import { CommonModule, NgFor } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { DeParaPipe } from "../pipes/de-para.pipe";
-import { FiltroDeParaDashboard } from "../models/types/dashboard.type";
 import { ObterEntregasRequest } from "../models/requests/obter-entregas.request";
-import { FormsModule, NgModel } from "@angular/forms";
-import { BehaviorSubject, catchError, EMPTY, finalize, map, of, switchMap, tap } from "rxjs";
+import { FormsModule } from "@angular/forms";
+import { BehaviorSubject, catchError, EMPTY, finalize, map, switchMap, tap } from "rxjs";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { EntregaService, ErrorResponse } from "../services/entrega.service";
 import { StatusEntrega } from "../models/enums/status-entrega.enum";

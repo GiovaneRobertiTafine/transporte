@@ -110,6 +110,7 @@ export class NovaEntregaPage {
 
     novaEntrega(): void {
         if (this.entregaForm.invalid) {
+            this.entregaForm.markAsTouched();
             return;
         }
         this.ngxSpinnerService.show();

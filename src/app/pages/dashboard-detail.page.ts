@@ -20,7 +20,7 @@ import { AlterarStatusEntregaComponent } from "../components/alterar-status-entr
                 <h3>Detalhes da Entrega {{entregaId}}</h3>
                 <div class="d-flex justify-content-between align-itens-center mb-3">
                     <button class="btn btn-primary btn-sm align-self-center" [routerLink]="'/home/dashboard'">Voltar</button>
-                    <component-alterar-status-entrega [entrega]="entrega()!" (emitAlterado)="obterDetalhesEntrega()"/>
+                    <component-alterar-status-entrega [entrega]="entrega()!" (emitAlterado)="entrega.set($event)"/>
                 </div>
                 <ng-container *ngIf="entrega(); else emptyEntrega">
                     <ul class="list-group mb-3">

@@ -1,6 +1,5 @@
 import { Pipe } from "@angular/core";
 import { StatusEntrega } from "../models/enums/status-entrega.enum";
-import { FiltroDeParaDashboard } from "../models/types/dashboard.type";
 
 export const DeParaPipeObj: { [index: string]: () => Record<any, string>; } = {
     'status-entrega': () => {

@@ -7,7 +7,7 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 @Component({
     selector: 'component-side-menu',
     template: `
-        <button class="btn btn-secondary ms-auto mb-1" id="btn-menu" (click)="menuChange.set(!menuChange())">Menu</button>
+        <button class="btn btn-secondary mb-1" id="btn-menu" (click)="menuChange.set(!menuChange())">Menu</button>
         <nav class="card" id="box-menu">
             <div class="card-header">
                 <div class="bg-primary rounded-3 text-center" id="box-icon-logo">
@@ -73,6 +73,10 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
             :host {
                 height: auto;
                 z-index: 99999;
+                float: inline-end;
+                margin-left: auto;
+                min-width: auto;
+
 
                 &.menu-close { 
                     #box-menu { display: none; }
@@ -88,7 +92,8 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
             #box-menu {
                 position: absolute;
                 top: 100%;
-                width: 100%;                
+                width: calc(100vw - 0.5rem);
+                right: 0;              
             }
         }
        
