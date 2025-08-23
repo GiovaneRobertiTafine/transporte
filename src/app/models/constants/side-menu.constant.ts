@@ -3,18 +3,12 @@ import { MenuItens } from "../types/side-menu.type";
 export const ListaItensSideMenu: MenuItens[] = [
     {
         title: 'Dashboard',
-        route: '/home/dashboard'
+        route: '/home/dashboard',
+        icon: 'box'
     },
     {
         title: 'Nova Entrega',
-        route: '/home/nova-entrega'
-    },
-    {
-        title: 'Entregas',
-        route: '/home/entregas'
-    },
-    {
-        title: 'Relatórios',
-        route: '/home/relatorios'
+        route: '/home/nova-entrega',
+        icon: 'plus-circle'
     }
 ];

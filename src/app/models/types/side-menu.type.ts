@@ -1,1 +1,1 @@
-export type MenuItens = { title: string; route: string; };
+export type MenuItens = { title: string; route: string; icon?: string; };

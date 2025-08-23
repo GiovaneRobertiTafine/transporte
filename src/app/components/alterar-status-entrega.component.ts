@@ -16,7 +16,7 @@ import { finalize } from "rxjs";
     template: `
         <div class="d-flex align-itens-center gap-3">
             <div class="form-floating">
-                <select class="form-select mb-3 mb-lg-0" name="filtro" id="filtroStatus" [(ngModel)]="status" placeholder="Selecione por Status">
+                <select class="form-select mb-lg-0" name="filtro" id="filtroStatus" [(ngModel)]="status" placeholder="Selecione por Status">
                     <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [ngValue]="item.value">
                         {{item.display}}
                     </option>
