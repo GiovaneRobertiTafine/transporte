@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, Q
 import { ListaItensSideMenu } from "../models/constants/side-menu.constant";
 import { CommonModule } from "@angular/common";
 import { MenuItens } from "../models/types/side-menu.type";
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
+import { AuthState } from "../states/auth.state";
 
 @Component({
     selector: 'component-side-menu',
@@ -11,7 +12,7 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
         [attr.aria-expanded]="menuChange()" (click)="menuChange.set(!menuChange())">Menu</button>
         <nav class="card" id="box-menu" aria-labelledby="btn-menu">
             <div class="card-header">
-                <div class="bg-primary rounded-3 text-center" id="box-icon-logo">
+                <div class="box-icon-logo">
                     <img src="assets/icons/truck.svg" width="50" heigth="50" alt="logotipo">
                 </div>
             </div>
@@ -26,13 +27,24 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
                             <img 
                                 *ngIf="item.icon" 
                                 [src]="'assets/icons/' + item.icon + '.svg'" 
-                                alt=""
+                                [alt]="item.route"
                                 aria-hidden="true"
                                 [ngClass]="rla.isActive? 'icon-item-active': 'icon-item'">
                             {{item.title}}
                         </a>
                     </li>
                 </ul>
+            </div>
+            <div class="card-footer">
+                <div class="d-inline-flex align-item-center cursor-pointer" (click)="sair()">
+                    <img 
+                        src="assets/icons/exit.svg" 
+                        alt="exit"
+                        aria-hidden="true"
+                        class="me-2"
+                    >
+                    Sair
+                </div>
             </div>
         </nav>
     `,
@@ -48,11 +60,6 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
         .links-side-menu {
             padding-left: 0px;
             white-space: nowrap;
-        }
-
-        #box-icon-logo {
-            width: 70px; height: 70px;
-            display: flex; justify-content: center;
         }
 
         .icon-item-active {
@@ -110,6 +117,8 @@ export class SideMenuComponent {
     @ViewChildren('linksMenu') linksMenu!: QueryList<ElementRef>;
 
     private elementRef = inject(ElementRef);
+    private router = inject(Router);
+    private authState = inject(AuthState);
 
     trackById(index: number, item: MenuItens): string {
         return item.route;
@@ -121,5 +130,10 @@ export class SideMenuComponent {
         if (!clickedInside ||
             this.linksMenu.find((e) => e.nativeElement.contains(targetElement)))
             this.menuChange.set(false);
+    }
+
+    sair(): void {
+        this.authState.desautenticar();
+        this.router.navigate(['/login']);
     }
 }

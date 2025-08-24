@@ -1,14 +1,21 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from 'ngx-toastr';
 import { EntregaService } from './services/entrega.service';
+import { LoginService } from './services/login.service';
+import { AuthService } from './services/auth.service';
+import { dashboardInterceptor } from './interceptors/dashboard.interceptor';
+
+function initializeApp(authService: AuthService) {
+    return () => authService.verificacaoInicialAutenticacao();
+}
 
 @NgModule({
     declarations: [
@@ -24,7 +31,18 @@ import { EntregaService } from './services/entrega.service';
             timeOut: 3000,
         })
     ],
-    providers: [provideHttpClient(), EntregaService],
+    providers: [
+        provideHttpClient(
+            withInterceptors([dashboardInterceptor])
+        ),
+        EntregaService, LoginService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeApp,
+            deps: [AuthService],
+            multi: true,
+        }
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

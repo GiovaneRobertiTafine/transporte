@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { canActivateDashboard } from './guards/dashboard.guard';
+import { canActivateLogin } from './guards/login.guard';
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'login',
         pathMatch: 'full'
     },
     {
@@ -12,6 +14,7 @@ const routes: Routes = [
         loadComponent() {
             return import('./templates/home.template').then(m => m.HomePage);
         },
+        canActivate: [canActivateDashboard],
         children: [
             {
                 path: '',
@@ -46,6 +49,17 @@ const routes: Routes = [
                 redirectTo: 'dashboard'
             }
         ]
+    },
+    {
+        path: 'login',
+        loadComponent() {
+            return import('./pages/login.page').then(m => m.LoginPage);
+        },
+        canActivate: [canActivateLogin]
+    },
+    {
+        path: '**',
+        redirectTo: 'login'
     }
 ];
 

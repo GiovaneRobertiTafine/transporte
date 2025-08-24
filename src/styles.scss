@@ -26,3 +26,12 @@ body {
 .toast-container {
     z-index: 999999;
 }
+
+.box-icon-logo {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    border-radius: .5rem;
+    background-color: rgba(var(--bs-primary-rgb));
+}
