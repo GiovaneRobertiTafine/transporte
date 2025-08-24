@@ -27,7 +27,6 @@ export class AuthState {
     }
 
     estaAutenticado(): boolean {
-        console.log(this._token(), this._usuario());
         return !!(this._token() && this.usuario());
     }
 

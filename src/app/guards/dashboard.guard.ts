@@ -8,8 +8,7 @@ export const canActivateDashboard: CanActivateFn = (
 ) => {
     const authState = inject(AuthState);
     const router = inject(Router);
-    console.warn(authState.estaAutenticado());
-    console.warn(authState.token, authState.usuario);
+
     if (!authState.estaAutenticado()) {
         authState.desautenticar();
         router.navigate(['/login']);

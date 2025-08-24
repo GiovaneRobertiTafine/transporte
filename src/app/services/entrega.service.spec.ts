@@ -77,7 +77,6 @@ describe('EntregaService', () => {
         };
 
         service.novaEntrega(request).subscribe((res) => {
-            console.warn(res);
             expect(res).toBeNull();
         });
 
