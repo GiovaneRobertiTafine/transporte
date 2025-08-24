@@ -19,57 +19,65 @@ import { ToastrService } from "ngx-toastr";
 @Component({
     selector: 'page-dashboard',
     template: `
-        <h3>Dashboard de Entregas</h3>
-        <div class="card">
-            <div class="d-lg-flex align-items-center p-3 gap-3 col-lg-6 col-auto form-floating">
-                <div class="form-floating">
-                    <select class="form-select col mb-3 mb-lg-0" name="filtro" id="filtroStatus" [(ngModel)]="filtro.status" placeholder="Selecione por Status">
-                        <option [ngValue]="undefined">Todos</option>
-                        <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [ngValue]="item.value">
-                            {{item.display}}
-                        </option>
-                    </select>
-                    <label for="filtroStatus">Status</label>
+        <div>
+            <h3>Dashboard de Entregas</h3>
+            <div class="card">
+                <form (submit)="aplicarFiltro(); $event.preventDefault()">
+                    <fieldset class="d-lg-flex align-items-center p-3 gap-3 col-lg-6 col-auto form-floating">
+                        <legend class="visually-hidden">Filtros de busca</legend>
+                        <div class="form-floating">
+                            <select class="form-select col mb-3 mb-lg-0" name="filtro" id="filtroStatus" [(ngModel)]="filtro.status" placeholder="Selecione por Status">
+                                <option [ngValue]="undefined">Todos</option>
+                                <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [ngValue]="item.value">
+                                    {{item.display}}
+                                </option>
+                            </select>
+                            <label for="filtroStatus">Status</label>
+                        </div>
+                        <div class="form-floating">
+                            <input class="form-control col mb-3 mb-lg-0" id="filtroClienteCodigo" type="text" name="filtro-input" [(ngModel)]="filtro.clienteCodigo" placeholder="Código ou Cliente" />
+                            <label for="filtroClienteCodigo">Código ou Cliente</label>
+                        </div>
+                        <button class="btn btn-primary col-auto" type="submit">Buscar</button>
+                    </fieldset>
+                </form>
+                <div class="border-top">
+                    <div class="table-responsive">
+                        <table class="table" aria-label="Lista de entregas">
+                            <caption class="ms-3">Lista das entregas cadastradas.</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Pedido</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Data Envio</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of entregasDto(); trackBy trackByIndex" 
+                                    (click)="detalharEntrega(item)"
+                                    [attr.aria-label]="'Ver detalhes da entrega ' + item.id">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.cliente}}</td>
+                                    <td>{{item.dataEnvio | date: 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <span [status]="item.status">
+                                            {{statusEntrega[item.status] | dePara: 'status-entrega'}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="form-floating">
-                    <input class="form-control col mb-3 mb-lg-0" id="filtroClienteCodigo" type="text" name="filtro-input" [(ngModel)]="filtro.clienteCodigo" placeholder="Código ou Cliente" />
-                    <label for="filtroClienteCodigo">Código ou Cliente</label>
+                <div class="d-flex justify-content-between align-itens-center pe-3" aria-label="Paginação de entregas">
+                    <span class="small fst-italic text-muted ms-3 align-self-center" aria-hidden="true">* 5 entregas por página</span>
+                    <ngb-pagination 
+                        [(page)]="pagination().page" 
+                        [collectionSize]="pagination().collectionSize" 
+                        [pageSize]="pagination().pageSize" 
+                        (pageChange)="aplicarPagination()" />
                 </div>
-                <button class="btn btn-primary col-auto" (click)="aplicarFiltro()">Buscar</button>
-            </div>
-            <div class="border-top">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Pedido</th>
-                                <th>Cliente</th>
-                                <th>Data Envio</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of entregasDto(); trackBy trackByIndex" (click)="detalharEntrega(item)">
-                                <td>{{item.id}}</td>
-                                <td>{{item.cliente}}</td>
-                                <td>{{item.dataEnvio | date: 'dd/MM/yyyy'}}</td>
-                                <td>
-                                    <span class="p-1 rounded-2" [status]="item.status">
-                                        {{statusEntrega[item.status] | dePara: 'status-entrega'}}
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="d-flex justify-content-between align-itens-center pe-3">
-                <span class="small fst-italic text-muted ms-3 align-self-center">* 5 entregas por página</span>
-                <ngb-pagination 
-                    [(page)]="pagination().page" 
-                    [collectionSize]="pagination().collectionSize" 
-                    [pageSize]="pagination().pageSize" 
-                    (pageChange)="aplicarPagination()" />
             </div>
         </div>
     `,

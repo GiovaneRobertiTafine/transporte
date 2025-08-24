@@ -24,5 +24,7 @@ export class StatusEntregaColorDirective {
         };
 
         this.el.nativeElement.style.backgroundColor = colorMap[status] || 'none';
+        this.el.nativeElement.style.borderRadius = '.375rem';
+        this.el.nativeElement.style.padding = '.25rem';
     }
 }

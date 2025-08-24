@@ -1,27 +1,50 @@
 # Transporte
+## Instruções de Instalação e Execução
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+1. **Clone o repositório**:
+    ```bash
+    git clone https://github.com/seu-usuario/transporte.git
+    cd transporte
+    ```
 
-## Development server
+2. **Instale as dependências**:
+    ```bash
+    npm install
+    ```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+3. **Execute o projeto**:
+    ```bash
+    ng serve
+    ```
+    O projeto estará disponível em `http://localhost:4200`.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Funcionalidades Implementadas
 
-## Build
+- Cadastro e gerenciamento de transportes.
+- Visualização de detalhes de transporte.
+- Filtros e busca avançada.
+- Integração com APIs ([transporte-api](https://github.com/GiovaneRobertiTafine/transporte-api)) externas para dados dinâmicos.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## Diferenciais
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Integração com API/Back-end**: Comunicação eficiente com serviços externos para dados atualizados.
+- **Lazy Loading**: Carregamento sob demanda para otimização de desempenho.
+- **Testes Unitários**: Cobertura de testes para garantir a qualidade do código.
+- **Responsividade e Acessibilidade**: Interface adaptável para diferentes dispositivos e tamanhos de tela.
 
-## Running end-to-end tests
+## Pages
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Dashboard de Entregas:**
+Apresenta dados mínimos das entregas contendo filtro para busca com campos status e código/cliente.
+Acesso ao detalhe da entrega clicando em uma linha ou em uma entrega na tabela.
+![detalhar-entrega](./src/assets/doc/detalhar-entrega.PNG)
 
-## Further help
+- **Detalhes da Entrega:**
+Visualiza os detalhes da entrega junto com histórico de status, incluindo função para alterar status.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **Nova Entrega:**
+Comptempla um formulário para inserir uma nova entrega.

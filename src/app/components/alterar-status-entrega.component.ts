@@ -14,7 +14,7 @@ import { finalize } from "rxjs";
 @Component({
     selector: 'component-alterar-status-entrega',
     template: `
-        <div class="d-flex align-itens-center gap-3">
+        <div class="d-flex align-itens-center gap-3" role="group" [attr.aria-label]="'Alterar status da entrega ' + entrega?.id">
             <div class="form-floating">
                 <select class="form-select mb-lg-0" name="filtro" id="filtroStatus" [(ngModel)]="status" placeholder="Selecione por Status">
                     <option *ngFor="let item of listaFiltro; trackBy trackByIndex" [ngValue]="item.value">
@@ -23,9 +23,10 @@ import { finalize } from "rxjs";
                 </select>
                 <label for="filtroStatus">Status</label>
             </div>
-            <button [disabled]="!entrega || !status" 
+            <button [disabled]="!entrega || status === undefined" 
                     class="btn btn-primary align-self-center" 
-                    (click)="alterarStatusEntrega()">
+                    (click)="alterarStatusEntrega()"
+                    [attr.aria-label]="'Confirmar alteração de status para ' + status">
                     Alterar Status    
             </button>
         </div>

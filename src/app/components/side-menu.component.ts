@@ -7,31 +7,30 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 @Component({
     selector: 'component-side-menu',
     template: `
-        <button class="btn btn-secondary mb-1" id="btn-menu" (click)="menuChange.set(!menuChange())">Menu</button>
-        <nav class="card" id="box-menu">
+        <button class="btn btn-secondary mb-1" id="btn-menu" aria-controls="box-menu"
+        [attr.aria-expanded]="menuChange()" (click)="menuChange.set(!menuChange())">Menu</button>
+        <nav class="card" id="box-menu" aria-labelledby="btn-menu">
             <div class="card-header">
                 <div class="bg-primary rounded-3 text-center" id="box-icon-logo">
-                    <img src="assets/icons/truck.svg" width="50" heigth="50" alt="truck">
+                    <img src="assets/icons/truck.svg" width="50" heigth="50" alt="logotipo">
                 </div>
             </div>
             <div class="card-body">
-                <ul class="links-side-menu">
-                    <li 
-                        class="d-flex gap-2 align-itens-center mb-3 cursor-pointer"  
-                        *ngFor="let item of sideMenuItems; trackBy trackById"
-                        routerLinkActive
-                        [routerLink]="item.route"
-                        #rla="routerLinkActive" #linksMenu>
-                        <img 
-                            *ngIf="item.icon" 
-                            [src]="'assets/icons/' + item.icon + '.svg'" 
-                            alt="plus-circle"
-                            [ngClass]="rla.isActive? 'icon-item-active': 'icon-item'">
-                        <div *ngIf="!item.icon" style="width: 16px; heigth: 24px;"></div>
-                        <a 
-                            class="text-decoration-none"
-                            [ngClass]="rla.isActive? 'text-primary fw-bold': 'text-muted'"
-                            >{{item.title}}</a>
+                <ul class="links-side-menu list-unstyled">
+                    <li *ngFor="let item of sideMenuItems; trackBy trackById">
+                        <a [routerLink]="item.route" 
+                        routerLinkActive="active-link" 
+                        #rla="routerLinkActive"
+                        class="d-flex gap-2 align-items-center mb-3 text-decoration-none"
+                        [ngClass]="rla.isActive? 'text-primary fw-bold': 'text-muted'">
+                            <img 
+                                *ngIf="item.icon" 
+                                [src]="'assets/icons/' + item.icon + '.svg'" 
+                                alt=""
+                                aria-hidden="true"
+                                [ngClass]="rla.isActive? 'icon-item-active': 'icon-item'">
+                            {{item.title}}
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -47,7 +46,6 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
         }
 
         .links-side-menu {
-            list-style-type: none;
             padding-left: 0px;
             white-space: nowrap;
         }
