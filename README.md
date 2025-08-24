@@ -25,7 +25,8 @@
 - Cadastro e gerenciamento de transportes.
 - Visualização de detalhes de transporte.
 - Filtros e busca avançada.
-- Integração com APIs ([transporte-api](https://github.com/GiovaneRobertiTafine/transporte-api)) externas para dados dinâmicos.
+- Integração com API ([transporte-api](https://github.com/GiovaneRobertiTafine/transporte-api)) para dados dinâmicos das entregas.
+- Sistema de login com integração com a API ([reqres-api](https://app.reqres.in/)), com gerenciamento de usuário, guardas e interceptadores.
 
 ---
 
@@ -35,6 +36,7 @@
 - **Lazy Loading**: Carregamento sob demanda para otimização de desempenho.
 - **Testes Unitários**: Cobertura de testes para garantir a qualidade do código.
 - **Responsividade e Acessibilidade**: Interface adaptável para diferentes dispositivos e tamanhos de tela.
+- **Página de Login:** Implementação para controle de acesso.
 
 ## Pages
 
@@ -48,3 +50,13 @@ Visualiza os detalhes da entrega junto com histórico de status, incluindo funç
 
 - **Nova Entrega:**
 Comptempla um formulário para inserir uma nova entrega.
+
+- **Login:**
+Controla acesso ao Dashboard.
+Dados para acesso: 
+    ```json    
+    {
+        email: 'eve.holt@reqres.in',
+        password: 'cityslicka'
+    }
+    ```
