@@ -18,7 +18,7 @@ import { DeParaPipe } from "../pipes/de-para.pipe";
             <div class="row mx-0 gx-2">
                 <div class="col-12 p-3 position-relative" aria-labelledby="relatorio-qtd-atrasadas">
                     <h5 id="relatorio-qtd-atrasadas">Quantidade de Entregas Atrasadas</h5>
-                    <p *ngIf="qtdAtrasadas() !== null">
+                    <p *ngIf="qtdAtrasadas()">
                         Total de entregas atrasadas: <strong>{{qtdAtrasadas()}}</strong>
                     </p>
                     <ngx-spinner name="relatorio-qtd-atrasadas" [fullScreen]="false" type="ball-scale-multiple"/>
@@ -36,9 +36,6 @@ import { DeParaPipe } from "../pipes/de-para.pipe";
                                 >
                             </canvas>
                         </div>
-                        <ng-template #vazioTotalPorStatus>
-                            Sem valor para este gráfico
-                        </ng-template>
                     </div>
 
                     <ngx-spinner name="relatorio-qtd-por-status" [fullScreen]="false" type="ball-scale-multiple"/>
