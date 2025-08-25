@@ -12,6 +12,7 @@ import { EntregaService } from './services/entrega.service';
 import { LoginService } from './services/login.service';
 import { AuthService } from './services/auth.service';
 import { dashboardInterceptor } from './interceptors/dashboard.interceptor';
+import { NgChartsModule } from 'ng2-charts';
 
 function initializeApp(authService: AuthService) {
     return () => authService.verificacaoInicialAutenticacao();
@@ -29,7 +30,8 @@ function initializeApp(authService: AuthService) {
         NgxSpinnerModule,
         ToastrModule.forRoot({
             timeOut: 3000,
-        })
+        }),
+        NgChartsModule
     ],
     providers: [
         provideHttpClient(

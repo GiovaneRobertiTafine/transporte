@@ -10,5 +10,10 @@ export const ListaItensSideMenu: MenuItens[] = [
         title: 'Nova Entrega',
         route: '/home/nova-entrega',
         icon: 'plus-circle'
+    },
+    {
+        title: 'Relatório',
+        route: '/home/relatorio',
+        icon: 'chart'
     }
 ];

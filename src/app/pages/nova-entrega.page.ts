@@ -13,7 +13,7 @@ import { finalize } from "rxjs";
 @Component({
     selector: 'page-nova-entrega',
     template: `
-        <div class="nova-entrega-container">
+        <div>
             <h3>Nova Entrega</h3>
             <form [formGroup]="entregaForm" (ngSubmit)="novaEntrega(); focusFormInvalid.focus()" 
                 focusInvalid #focusFormInvalid="focusInvalid" [selectorInvalid]="selectorInvalid">

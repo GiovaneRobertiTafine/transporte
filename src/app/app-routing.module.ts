@@ -45,6 +45,12 @@ const routes: Routes = [
                 },
             },
             {
+                path: 'relatorio',
+                loadComponent() {
+                    return import('./pages/relatorio.page').then(m => m.RelatorioPage);
+                }
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard'
             }

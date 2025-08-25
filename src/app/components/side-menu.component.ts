@@ -18,7 +18,7 @@ import { AuthState } from "../states/auth.state";
             </div>
             <div class="card-body">
                 <ul class="links-side-menu list-unstyled">
-                    <li *ngFor="let item of sideMenuItems; trackBy trackById">
+                    <li *ngFor="let item of sideMenuItems; trackBy trackById" #linksMenu>
                         <a [routerLink]="item.route" 
                         routerLinkActive="active-link" 
                         #rla="routerLinkActive"

@@ -37,6 +37,7 @@
 - **Testes Unitários**: Cobertura de testes para garantir a qualidade do código.
 - **Responsividade e Acessibilidade**: Interface adaptável para diferentes dispositivos e tamanhos de tela.
 - **Página de Login:** Implementação para controle de acesso.
+- **Página de Relatórios:** IMplementação para visualização de dados específicos referente as entregas.
 
 ## Pages
 
@@ -60,3 +61,5 @@ Dados para acesso:
         password: 'cityslicka'
     }
     ```
+- **Relatório:**
+Visualiza dados específicos referentes as entregas
